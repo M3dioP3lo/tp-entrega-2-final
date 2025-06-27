@@ -1,0 +1,18 @@
+.container {
+  background: linear-gradient(to right, #c3d1e6, #eef3fa);
+  padding: 2rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 80vh;
+  box-sizing: border-box;
+}
+
+.content {
+  display: flex;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;
+}
