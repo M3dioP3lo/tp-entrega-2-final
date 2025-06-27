@@ -2,7 +2,7 @@
   min-height: 100vh;
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom right, #d0dff1, #f5f9ff);
+  background: linear-gradient(to bottom right, #c3d1e6, #f0f8ff)
   display: flex;
   flex-direction: column;
 }
