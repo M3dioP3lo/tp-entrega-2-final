@@ -1,12 +1,29 @@
 .panel {
+  flex: 1 1 280px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-size: 1.5rem;
+  gap: 0.8rem;
+  font-size: 1rem;
   font-weight: bold;
+  padding: 1rem;
+  background-color: #d5dff3;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .checkbox {
-  margin-right: 2rem;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+}
+
+.checkbox:hover {
+  background-color: #e0e7ff;
+  transform: scale(1.02);
 }

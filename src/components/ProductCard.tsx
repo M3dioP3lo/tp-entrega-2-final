@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ProductCard.module.css";
+import { Link } from 'react-router-dom';
 
 interface Product {
   id: string;
@@ -20,8 +21,10 @@ type Props = {
 const ProductCard: React.FC<Props> = ({ product, quantity, onAdd, onRemove }) => {
   return (
     <div className={styles.card}>
-      <img src={product.image} alt={product.name} />
-      <h3>{product.name}</h3>
+      <Link to={`/producto/${product.id}`} className={styles.link}>
+        <img src={product.image} alt={product.name} />
+        <h3>{product.name}</h3>
+      </Link>
       <p className={styles.description}>{product.description}</p>
       <p className={styles.price}>${product.price.toLocaleString()}</p>
 
