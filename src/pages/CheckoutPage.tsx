@@ -3,31 +3,37 @@ import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import styles from '../components/CartPage.module.css';
 
 function CheckoutPage() {
-  const { cart, totalPrice, totalItems } = useCart();
+  const { cart, totalPrice, totalItems, clearCart } = useCart();
   const [confirmed, setConfirmed] = useState(false);
   const [buyer, setBuyer] = useState({ nombre: '', email: '', direccion: '' });
+  const [totalPagado, setTotalPagado] = useState(0);
 
   const handleConfirm = () => {
     if (!buyer.nombre || !buyer.email || !buyer.direccion) {
       alert('Por favor completá todos los datos');
       return;
     }
+    setTotalPagado(totalPrice);
     setConfirmed(true);
+    clearCart();
   };
 
   if (confirmed) {
     return (
       <div>
-        <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-        <div style={{ padding: '0rem', textAlign: 'center' }}>
+        <Navbar cartCount={0} totalPrice={0} />
+        <div style={{ padding: '1rem', textAlign: 'center' }}>
           <h1>¡Gracias por tu compra, {buyer.nombre}!</h1>
           <p>Recibirás la confirmación en: {buyer.email}</p>
           <p>Enviaremos los productos a: {buyer.direccion}</p>
-          <h2>Total pagado: ${totalPrice.toLocaleString()}</h2>
-          <Link to="/" style={{ marginTop: '1rem', display: 'inline-block' }}>
-            ⏎ Volver al inicio
+          <h2>Total pagado: ${totalPagado.toLocaleString()}</h2>
+          <Link to="/">
+            <button className={styles.buttonLink} style={{ marginTop: '1rem' }}>
+              ⏎ Volver al inicio
+            </button>
           </Link>
         </div>
       </div>
@@ -37,8 +43,8 @@ function CheckoutPage() {
   return (
     <div>
       <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-      <div style={{ padding: '0rem', maxWidth: '600px', margin: 'auto' }}>
-        <h1>Checkout</h1>
+      <div style={{ padding: '1rem', maxWidth: '600px', margin: 'auto' }}>
+        <h1 style={{ textAlign: 'center' }}>Checkout</h1>
 
         <h3>Resumen del pedido:</h3>
         <ul>
@@ -63,27 +69,57 @@ function CheckoutPage() {
           placeholder="Nombre"
           value={buyer.nombre}
           onChange={(e) => setBuyer({ ...buyer, nombre: e.target.value })}
-          style={{ display: 'block', marginBottom: '1rem', width: '100%' }}
+          style={{
+            display: 'block',
+            marginBottom: '1rem',
+            width: '100%',
+            padding: '0.5rem',
+            borderRadius: '6px',
+            border: '1px solid #ccc',
+          }}
         />
         <input
           type="email"
           placeholder="Email"
           value={buyer.email}
           onChange={(e) => setBuyer({ ...buyer, email: e.target.value })}
-          style={{ display: 'block', marginBottom: '1rem', width: '100%' }}
+          style={{
+            display: 'block',
+            marginBottom: '1rem',
+            width: '100%',
+            padding: '0.5rem',
+            borderRadius: '6px',
+            border: '1px solid #ccc',
+          }}
         />
         <input
           type="text"
           placeholder="Dirección"
           value={buyer.direccion}
           onChange={(e) => setBuyer({ ...buyer, direccion: e.target.value })}
-          style={{ display: 'block', marginBottom: '1rem', width: '100%' }}
+          style={{
+            display: 'block',
+            marginBottom: '1rem',
+            width: '100%',
+            padding: '0.5rem',
+            borderRadius: '6px',
+            border: '1px solid #ccc',
+          }}
         />
 
-        <button onClick={handleConfirm}>Confirmar compra</button>
-        <Link to="/" style={{ display: 'block', marginTop: '1rem' }}>
-          ← Volver y seguir comprando
-        </Link>
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <button className={styles.buttonLink} onClick={handleConfirm}>
+            Confirmar compra
+          </button>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+          <Link to="/">
+            <button className={styles.buttonLink}>
+              ← Volver y seguir comprando
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

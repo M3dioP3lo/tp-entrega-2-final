@@ -2,6 +2,7 @@ import { useCart } from '../context/CartContext';
 import { products } from '../data/products';
 import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
+import styles from '../components/CartPage.module.css';
 
 function CartPage() {
   const { cart, handleAdd, handleRemove, totalPrice, totalItems } = useCart();
@@ -10,13 +11,17 @@ function CartPage() {
     const product = products.find((p) => p.id === id);
     if (!product) return null;
     return (
-      <div key={id} style={{ borderBottom: '1px solid #ccc', padding: '0rem' }}>
+      <div key={id} className={styles.itemCard}>
         <h3>{product.name}</h3>
-        <p>Cantidad: {qty}</p>
-        <p>Precio unitario: ${product.price.toLocaleString()}</p>
-        <p>Total: ${(product.price * qty).toLocaleString()}</p>
-        <button onClick={() => handleAdd(id)}>+</button>
-        <button onClick={() => handleRemove(id)}>-</button>
+        <div className={styles.itemDetails}>
+          <p>Cantidad: {qty}</p>
+          <p>Precio unitario: ${product.price.toLocaleString()}</p>
+          <p>Total: ${(product.price * qty).toLocaleString()}</p>
+        </div>
+        <div className={styles.controls}>
+          <button onClick={() => handleAdd(id)}>➕</button>
+          <button onClick={() => handleRemove(id)}>➖</button>
+        </div>
       </div>
     );
   });
@@ -24,20 +29,28 @@ function CartPage() {
   return (
     <div>
       <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-      <div style={{ padding: '0rem' }}>
-        <h1>Carrito de compras</h1>
+      <div style={{ padding: '1rem', maxWidth: '800px', margin: 'auto' }}>
+        <h1 style={{ textAlign: 'center' }}>Carrito de compras</h1>
         {items.length === 0 ? (
-          <p>Tu carrito está vacío.</p>
+          <p style={{ textAlign: 'center' }}>Tu carrito está vacío.</p>
         ) : (
           <>
             {items}
             <hr />
-            <h2>Total general: ${totalPrice.toLocaleString()}</h2>
-            <div style={{ marginTop: '1.5rem' }}>
-              <Link to="/checkout" style={{ marginRight: '1rem' }}>
-                Finalizar compra
-              </Link>
-              <Link to="/">Seguir comprando</Link>
+            <div className={styles.totalSection}>
+              <h2>Total general: ${totalPrice.toLocaleString()}</h2>
+              <div className={styles.links}>
+                <Link to="/checkout">
+                  <button className={styles.buttonLink}>
+                    Finalizar compra
+                  </button>
+                </Link>
+                <Link to="/">
+                  <button className={styles.buttonLink}>
+                    Seguir comprando
+                  </button>
+                </Link>
+              </div>
             </div>
           </>
         )}

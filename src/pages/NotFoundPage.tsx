@@ -4,14 +4,14 @@ function NotFoundPage() {
   return (
     <div style={{ textAlign: 'center', padding: '4rem' }}>
       <h1 style={{ fontSize: '3rem', color: '#d10000' }}>
-        404 – Página no encontrada
+        Error - 404
       </h1>
       <p style={{ fontSize: '1.3rem', color: '#555', marginBottom: '2rem' }}>
-        Falta colocar imagen
+       ¡Oops! Esta página no existe
       </p>
 
       <img
-        src="/images/capibara/perdido.svg"
+        src="/images/capibara/perdido.webp"
         alt="Capibara perdido"
         style={{
           width: '300px',

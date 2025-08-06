@@ -6,6 +6,8 @@ import FilterPanel from '../components/FilterPanel';
 import Container from '../components/Container';
 import ProductList from '../components/ProductList';
 import { useCart } from '../context/CartContext';
+import panelStyles from '../components/ControlPanel.module.css';
+// import filterStyles from '../components/FilterPanel.module.css'; no lo borro por las dudas
 
 interface Product {
   id: string;
@@ -18,6 +20,7 @@ interface Product {
 
 function ProductListPage() {
   const { cart, handleAdd, handleRemove, totalItems, totalPrice } = useCart();
+
   const [search, setSearch] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedPrice, setSelectedPrice] = useState('');
@@ -30,7 +33,8 @@ function ProductListPage() {
   const filteredProducts = productsData.filter((p) => {
     const matchName = p.name.toLowerCase().includes(search.toLowerCase());
     const matchCategory =
-      selectedCategories.length === 0 || selectedCategories.includes(p.category);
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(p.category);
     const matchPrice =
       selectedPrice === '' ||
       (selectedPrice === '<1000000' && p.price < 1000000) ||
@@ -66,20 +70,26 @@ function ProductListPage() {
     <div>
       <Navbar cartCount={totalItems} totalPrice={totalPrice} />
       <div style={{ padding: '2rem' }}>
-        <SearchBar value={search} onChange={setSearch} />
-        <FilterPanel
-          categories={allCategories}
-          selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}
-          selectedPrice={selectedPrice}
-          setSelectedPrice={setSelectedPrice}
-        />
-        <button
-          className="ofertasButton"
-          onClick={() => setShowOffers(!showOffers)}
-        >
-          {showOffers ? 'Ver todos' : 'Ofertas Imperdibles'}
-        </button>
+        <div className={panelStyles.controlPanel}>
+          <div className={panelStyles.searchBar}>
+            <SearchBar value={search} onChange={setSearch} />
+          </div>
+          <div className={panelStyles.filters}>
+            <FilterPanel
+              categories={allCategories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              selectedPrice={selectedPrice}
+              setSelectedPrice={setSelectedPrice}
+            />
+          </div>
+          <button
+            className={panelStyles.ofertasButton}
+            onClick={() => setShowOffers(!showOffers)}
+          >
+            {showOffers ? 'Ver todos' : 'Ofertas Imperdibles'}
+          </button>
+        </div>
       </div>
       <Container>
         {Object.keys(grouped).length === 0 ? (

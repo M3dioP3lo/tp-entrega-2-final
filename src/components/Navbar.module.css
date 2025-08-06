@@ -2,15 +2,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 2rem;
+  padding: 0.2rem 1rem;
   background: linear-gradient(135deg, #3c5f9d, #6b8bc8);
   color: white;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   border-radius: 0 0 1rem 1rem;
   position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100vw;
+  top: 64px;
+  z-index: 999;
+  width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -26,7 +26,7 @@
 }
 
 .logoIcon {
-  height: 150px;
+  height: 100px;
   width: auto;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .total {
-  background-color: #ffcc00;
+  background-color: #00c6ff;
   color: #222;
   padding: 0.6rem 1rem;
   border-radius: 8px;

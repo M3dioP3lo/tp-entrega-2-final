@@ -2,10 +2,23 @@
   background: linear-gradient(to right, #dee7f4, #b2d6f3);
   padding: 0.5rem;
   margin-top: 1rem;
-  border-radius: 0.8rem;
+  border-radius: .8rem;
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 80vh;
   box-sizing: border-box;
+  padding-top: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 24px;
+  }
 }
