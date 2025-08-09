@@ -1,15 +1,28 @@
-import AppRoutes from './routes/AppRoutes';
-import Header from './components/Header';
+import { Routes, Route } from 'react-router-dom';
+import ProductListPage from './pages/ProductListPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import Navbar from './components/Navbar';
 import { useCart } from './context/CartContext';
+import Header from './components/Header';
+import CreateProductPage from './pages/CreateProductPage';
 
 function App() {
-  const { totalItems } = useCart();
+  const { totalPrice, totalItems } = useCart();
 
   return (
-    <div>
+    <>
       <Header cartCount={totalItems} />
-      <AppRoutes />
-    </div>
+      <Navbar totalPrice={totalPrice} />
+      <Routes>
+        <Route path="/" element={<ProductListPage />} />
+        <Route path="/producto/:id" element={<ProductDetailPage />} />
+        <Route path="/carrito" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/crear-producto" element={<CreateProductPage />} />
+      </Routes>
+    </>
   );
 }
 

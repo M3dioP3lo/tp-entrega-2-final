@@ -1,118 +1,183 @@
-import { useState } from 'react';
-import { products as productsData } from '../data/products';
-import Navbar from '../components/Navbar';
-import SearchBar from '../components/SearchBar';
-import FilterPanel from '../components/FilterPanel';
-import Container from '../components/Container';
-import ProductList from '../components/ProductList';
+import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
-import panelStyles from '../components/ControlPanel.module.css';
-// import filterStyles from '../components/FilterPanel.module.css'; no lo borro por las dudas
+import { productService } from '../MOCKS/ecommerce/service';
+import { Link } from 'react-router-dom';
+import styles from '../components/CartPage.module.css';
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-}
+const ProductListPage = () => {
+  const { handleAdd, handleRemove, cartItems } = useCart();
+  const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [sortOption, setSortOption] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-function ProductListPage() {
-  const { cart, handleAdd, handleRemove, totalItems, totalPrice } = useCart();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const result = await productService.getAllProducts();
+        setProducts(result);
+      } catch (err) {
+        setError('Error al cargar productos');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-  const [search, setSearch] = useState('');
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedPrice, setSelectedPrice] = useState('');
-  const [showOffers, setShowOffers] = useState(false);
-
-  const allCategories = Array.from(
-    new Set(productsData.map((p) => p.category))
-  );
-
-  const filteredProducts = productsData.filter((p) => {
-    const matchName = p.name.toLowerCase().includes(search.toLowerCase());
-    const matchCategory =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(p.category);
-    const matchPrice =
-      selectedPrice === '' ||
-      (selectedPrice === '<1000000' && p.price < 1000000) ||
-      (selectedPrice === '1000000-2000000' &&
-        p.price >= 1000000 &&
-        p.price <= 2000000) ||
-      (selectedPrice === '>2000000' && p.price > 2000000);
-
-    return matchName && matchCategory && matchPrice;
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesCategory = categoryFilter
+      ? product.category === categoryFilter
+      : true;
+    return matchesSearch && matchesCategory;
   });
 
-  const filteredOffers: Product[] = allCategories
-    .map((cat) => {
-      const inCategory = filteredProducts.filter((p) => p.category === cat);
-      if (inCategory.length === 0) return null;
-      return inCategory.reduce(
-        (min, p) => (p.price < min.price ? p : min),
-        inCategory[0]
-      );
-    })
-    .filter((p): p is Product => p !== null);
+  if (sortOption === 'price-low') {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortOption === 'price-high') {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  } else if (sortOption === 'name-az') {
+    filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sortOption === 'name-za') {
+    filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
+  }
 
-  const grouped = (showOffers ? filteredOffers : filteredProducts).reduce(
-    (acc: Record<string, Product[]>, p) => {
-      acc[p.category] = acc[p.category] || [];
-      if (acc[p.category].length < 7) acc[p.category].push(p);
-      return acc;
-    },
-    {} as Record<string, Product[]>
-  );
+  if (loading) {
+    return (
+      <div className={styles.cartContainer}>
+        <p>Cargando productos...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.cartContainer}>
+        <p style={{ color: 'red' }}>{error}</p>
+      </div>
+    );
+  }
+
+  const categories = [...new Set(products.map((product) => product.category))];
+
+  const getQuantityInCart = (productId: string) => {
+    const item = cartItems.find((item) => item.id === productId);
+    return item ? item.quantity : 0;
+  };
+
+  const traducciones: { [key: string]: string } = {
+    electronics: 'Electrónicos',
+    clothing: 'Ropa y Accesorios',
+    home: 'Hogar y Cocina',
+  };
 
   return (
-    <div>
-      <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-      <div style={{ padding: '2rem' }}>
-        <div className={panelStyles.controlPanel}>
-          <div className={panelStyles.searchBar}>
-            <SearchBar value={search} onChange={setSearch} />
-          </div>
-          <div className={panelStyles.filters}>
-            <FilterPanel
-              categories={allCategories}
-              selectedCategories={selectedCategories}
-              setSelectedCategories={setSelectedCategories}
-              selectedPrice={selectedPrice}
-              setSelectedPrice={setSelectedPrice}
-            />
-          </div>
-          <button
-            className={panelStyles.ofertasButton}
-            onClick={() => setShowOffers(!showOffers)}
+    <>
+      <div className={styles.cartContainer}>
+        <h2>Lista de Productos</h2>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <input
+            type="text"
+            placeholder="Buscar por nombre..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ padding: '0.5rem', marginRight: '1rem' }}
+          />
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            style={{ padding: '0.5rem' }}
           >
-            {showOffers ? 'Ver todos' : 'Ofertas Imperdibles'}
-          </button>
+            <option value="">Todas las categorías</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {traducciones[cat] || cat}
+              </option>
+            ))}
+          </select>
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            style={{ padding: '0.5rem', marginLeft: '1rem' }}
+          >
+            <option value="">Ordenar por...</option>
+            <option value="price-low">Precio: menor a mayor</option>
+            <option value="price-high">Precio: mayor a menor</option>
+            <option value="name-az">Nombre: A-Z</option>
+            <option value="name-za">Nombre: Z-A</option>
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+          {filteredProducts.length === 0 ? (
+            <p>No se encontraron productos.</p>
+          ) : (
+            filteredProducts.map((product) => {
+              const quantity = getQuantityInCart(product.id.toString());
+
+              return (
+                <div
+                  key={product.id}
+                  className={styles.itemCard}
+                  style={{ width: '300px' }}
+                >
+                  <h3>{product.title}</h3>
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    style={{
+                      width: '100%',
+                      height: '200px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                    }}
+                  />
+                  <p>{product.description}</p>
+                  <p>Precio: ${product.price}</p>
+                  <p>
+                    Categoría:{' '}
+                    {traducciones[product.category] || product.category}
+                  </p>
+
+                  <div className={styles.controls}>
+                    <button
+                      onClick={() => handleAdd(product.id.toString())}
+                      className={styles.buttonLink}
+                    >
+                      +
+                    </button>
+                    <span style={{ margin: '0 0.5rem' }}>{quantity}</span>
+                    <button
+                      onClick={() => handleRemove(product.id.toString())}
+                      className={styles.buttonLink}
+                      disabled={quantity === 0}
+                    >
+                      -
+                    </button>
+                  </div>
+
+                  <div className={styles.detailButtonWrapper}></div>
+                  <Link
+                    to={`/producto/${product.id}`}
+                    className={styles.detailButton}
+                  >
+                    Ver detalle
+                  </Link>
+                </div>
+              );
+            })
+          )}
         </div>
       </div>
-      <Container>
-        {Object.keys(grouped).length === 0 ? (
-          <div style={{ textAlign: 'center', paddingTop: '2rem' }}>
-            <h3 style={{ color: '#333', opacity: 0.7 }}>
-              No se encontraron productos con esos filtros.
-            </h3>
-          </div>
-        ) : (
-          Object.entries(grouped).map(([cat, prods]) => (
-            <ProductList
-              key={cat}
-              category={cat}
-              products={prods}
-              cart={cart}
-              onAdd={handleAdd}
-              onRemove={handleRemove}
-            />
-          ))
-        )}
-      </Container>
-    </div>
+    </>
   );
-}
+};
 
 export default ProductListPage;

@@ -1,62 +1,85 @@
 import { useParams } from 'react-router-dom';
-import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
-import Navbar from '../components/Navbar';
+import { useEffect, useState } from 'react';
+import styles from '../components/CartPage.module.css';
+import { productService } from '../MOCKS/ecommerce/service';
 
-function ProductDetailPage() {
+const ProductDetailPage = () => {
   const { id } = useParams();
-  const { cart, handleAdd, handleRemove, totalItems, totalPrice } = useCart();
+  const { handleAdd, handleRemove, cart } = useCart();
+  const [product, setProduct] = useState(null);
 
-  const product = products.find((p) => p.id === id);
-  const quantity = product ? cart[product.id] || 0 : 0;
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const result = await productService.getProductById(id);
+        setProduct(result);
+      } catch (error) {
+        setProduct(null);
+      }
+    };
+    fetchProduct();
+  }, [id]);
 
   if (!product) {
     return (
-      <div>
-        <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-        <div style={{ textAlign: 'center', padding: '1rem' }}>
-          <h2>Producto no encontrado</h2>
-          <p>Verificá el enlace o volvé al inicio.</p>
-        </div>
+      <div className={styles.cartContainer}>
+        <h2>Producto no encontrado</h2>
       </div>
     );
   }
 
+  const quantity = cart[product.id.toString()] || 0;
+
   return (
-    <div>
-      <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-      <div style={{ padding: '2rem', maxWidth: '800px', margin: 'auto' }}>
-        <img
-          src={product.image}
-          alt={product.name}
-          style={{
-            width: '100%',
-            maxHeight: '400px',
-            objectFit: 'contain',
-            marginBottom: '1rem',
-          }}
-        />
-        <h2>{product.name}</h2>
-        <p style={{ fontSize: '1.2rem', color: '#444' }}>
-          {product.description}
-        </p>
-        <h3>Precio: ${product.price.toLocaleString()}</h3>
+    <div className={styles.cartContainer}>
+      <div className={styles.itemCard}>
+        <h3>{product.name}</h3>
+        <div className={styles.itemDetails}>
+          <img
+            src={product.image}
+            alt={product.name}
+            style={{
+              width: '580px',
+              height: '580px',
+              objectFit: 'cover',
+              borderRadius: '12px',
+              boxShadow: '0 4px 12px rgba(0,,2,3.1)',
+              marginRight: '20px',
+            }}
+          />
+          <div>
+            <p>{product.description}</p>
+            <p>Precio: ${product.price}</p>
+            <div className={styles.controls}>
+              <button
+                onClick={() => handleAdd(product.id.toString())}
+                className={styles.buttonLink}
+              >
+                Agregar al carrito
+              </button>
 
-        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-          <button onClick={() => handleAdd(product.id)}>+</button>
-          {quantity > 0 && (
-            <button onClick={() => handleRemove(product.id)}>-</button>
-          )}
+              {quantity > 0 && (
+                <button
+                  onClick={() => handleRemove(product.id.toString())}
+                  className={styles.buttonLink}
+                  style={{ marginLeft: '10px' }}
+                >
+                  Quitar
+                </button>
+              )}
+            </div>
+
+            {quantity > 0 && (
+              <p style={{ marginTop: '10px' }}>
+                En el carrito: <strong>{quantity}</strong>
+              </p>
+            )}
+          </div>
         </div>
-
-        {quantity > 0 && (
-          <p style={{ marginTop: '0.5rem' }}>
-            En carrito: <strong>{quantity}</strong>
-          </p>
-        )}
       </div>
     </div>
   );
-}
+};
 
 export default ProductDetailPage;

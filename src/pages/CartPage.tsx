@@ -1,62 +1,92 @@
 import { useCart } from '../context/CartContext';
-import { products } from '../data/products';
-import Navbar from '../components/Navbar';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styles from '../components/CartPage.module.css';
+import styles from '../components/CarritoCompras.module.css';
+import { productService } from '../MOCKS/ecommerce/service';
 
-function CartPage() {
-  const { cart, handleAdd, handleRemove, totalPrice, totalItems } = useCart();
+export default function CartPage() {
+  const { cart, handleAdd, handleRemove, totalPrice } = useCart();
+  const [products, setProducts] = useState([]);
 
-  const items = Object.entries(cart).map(([id, qty]) => {
-    const product = products.find((p) => p.id === id);
-    if (!product) return null;
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const result = await productService.getAllProducts();
+      setProducts(result);
+    };
+    fetchProducts();
+  }, []);
+
+  const getProductById = (id) => {
+    return productsDB.find((p) => p.id.toString() === id);
+  };
+
+  const cartItems = Object.entries(cart)
+    .map(([id, qty]) => {
+      const product = products.find((p) => p.id.toString() === id);
+      return product ? { ...product, qty } : null;
+    })
+    .filter(Boolean);
+
+  if (cartItems.length === 0) {
     return (
-      <div key={id} className={styles.itemCard}>
-        <h3>{product.name}</h3>
-        <div className={styles.itemDetails}>
-          <p>Cantidad: {qty}</p>
-          <p>Precio unitario: ${product.price.toLocaleString()}</p>
-          <p>Total: ${(product.price * qty).toLocaleString()}</p>
-        </div>
-        <div className={styles.controls}>
-          <button onClick={() => handleAdd(id)}>➕</button>
-          <button onClick={() => handleRemove(id)}>➖</button>
+      <div className={styles.totalSection}>
+        <h1>Tu carrito está vacío 🛒</h1>
+        <div className={styles.links}>
+          <Link to="/" className={styles.buttonLink}>
+            Volver al catálogo
+          </Link>
         </div>
       </div>
     );
-  });
+  }
 
   return (
-    <div>
-      <Navbar cartCount={totalItems} totalPrice={totalPrice} />
-      <div style={{ padding: '1rem', maxWidth: '800px', margin: 'auto' }}>
-        <h1 style={{ textAlign: 'center' }}>Carrito de compras</h1>
-        {items.length === 0 ? (
-          <p style={{ textAlign: 'center' }}>Tu carrito está vacío.</p>
-        ) : (
-          <>
-            {items}
-            <hr />
-            <div className={styles.totalSection}>
-              <h2>Total general: ${totalPrice.toLocaleString()}</h2>
-              <div className={styles.links}>
-                <Link to="/checkout">
-                  <button className={styles.buttonLink}>
-                    Finalizar compra
+    <div className={styles.cartContainer}>
+      <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        Carrito de Compras
+      </h1>
+
+      {cartItems.map((product) => (
+        <div key={product.id} className={styles.itemCard}>
+          <div className={styles.itemDetails}>
+            <img
+              src={product.image}
+              alt={product.title}
+              className={styles.productImage}
+            />
+
+            <div className={styles.productContent}>
+              <h3 className={styles.productTitle}>{product.title}</h3>
+
+              <div className={styles.priceSection}>
+                <p>Precio: ${product.price}</p>
+                <p>Subtotal: ${(product.price * product.qty).toFixed(2)}</p>
+
+                <div className={styles.controls}>
+                  <button onClick={() => handleRemove(product.id.toString())}>
+                    −
                   </button>
-                </Link>
-                <Link to="/">
-                  <button className={styles.buttonLink}>
-                    Seguir comprando
+                  <span>{product.qty}</span>
+                  <button onClick={() => handleAdd(product.id.toString())}>
+                    +
                   </button>
-                </Link>
+                </div>
               </div>
             </div>
-          </>
-        )}
+          </div>
+        </div>
+      ))}
+      <div className={styles.totalSection}>
+        <h2>Total: ${totalPrice.toFixed(2)}</h2>
+        <div className={styles.links}>
+          <Link to="/checkout" className={styles.buttonLink}>
+            Finalizar compra
+          </Link>
+          <Link to="/" className={styles.buttonLink}>
+            Seguir comprando
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
-
-export default CartPage;

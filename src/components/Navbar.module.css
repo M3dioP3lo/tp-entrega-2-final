@@ -8,7 +8,7 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   border-radius: 0 0 1rem 1rem;
   position: sticky;
-  top: 64px;
+  top: 80px;
   z-index: 999;
   width: 100%;
   max-width: 100%;
@@ -61,4 +61,67 @@
   border-radius: 8px;
   font-weight: bold;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.navButton:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.createProductContainer {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #113aa0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.createProductContainer h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #333;
+  
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.buttonLink {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.buttonLink:hover {
+  background-color: #0056b3;
 }

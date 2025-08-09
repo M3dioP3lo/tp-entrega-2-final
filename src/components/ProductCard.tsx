@@ -1,58 +1,36 @@
-import React from "react";
-import styles from "./ProductCard.module.css";
-import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { Product } from '../types/Product';
+import styles from './ProductCard.module.css';
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
+interface Props {
+  product: Product;
 }
 
-type Props = {
-  product: Product;
-  quantity: number;
-  onAdd: (id: string) => void;
-  onRemove: (id: string) => void;
-};
+export default function ProductCard({ product }: Props) {
+  const { cart, handleAdd, handleRemove } = useCart();
 
-const ProductCard: React.FC<Props> = ({ product, quantity, onAdd, onRemove }) => {
+  const productId = product.id.toString();
+  const quantity = cart[productId] || 0;
+
   return (
     <div className={styles.card}>
-      <Link to={`/producto/${product.id}`} className={styles.link}>
-        <img src={product.image} alt={product.name} />
-        <h3>{product.name}</h3>
-      </Link>
-      <p className={styles.description}>{product.description}</p>
-      <p className={styles.price}>${product.price.toLocaleString()}</p>
+      <h3>{product.name}</h3>
+      <p>Precio: ${product.price}</p>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "0.8rem" }}>
+      {quantity === 0 ? (
         <button
-          className="bg-blue-500 text-white px-3 py-1 rounded"
-          onClick={() => onAdd(product.id)}
+          onClick={() => handleAdd(productId)}
+          className={styles.button}
         >
-          Agregar
+          Agregar al carrito
         </button>
-
-        {quantity > 0 && (
-          <button
-            className="bg-red-500 text-white px-3 py-1 rounded"
-            onClick={() => onRemove(product.id)}
-          >
-            Quitar
-          </button>
-        )}
-      </div>
-
-      {quantity > 0 && (
-        <p style={{ marginTop: "0.5rem", fontWeight: "normal", fontSize: "0.9rem" }}>
-          En carrito: <strong>{quantity}</strong>
-        </p>
+      ) : (
+        <div className={styles.controls}>
+          <button onClick={() => handleRemove(productId)}>-</button>
+          <span>{quantity}</span>
+          <button onClick={() => handleAdd(productId)}>+</button>
+        </div>
       )}
     </div>
   );
-};
-
-export default ProductCard;
+}
