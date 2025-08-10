@@ -44,13 +44,15 @@ const ProductDetailPage = () => {
               height: '580px',
               objectFit: 'cover',
               borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(0,,2,3.1)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
               marginRight: '20px',
             }}
           />
-          <div>
-            <p>{product.description}</p>
-            <p>Precio: ${product.price}</p>
+          <div className={styles.descriptionBox}>
+            <h4 className={styles.descriptionTitle}>Descripción del Producto</h4>
+            <p className={styles.descriptionText}>{product.description}</p>
+            <p className={styles.priceText}>Precio: ${product.price}</p>
+
             <div className={styles.controls}>
               <button
                 onClick={() => handleAdd(product.id.toString())}
@@ -63,7 +65,6 @@ const ProductDetailPage = () => {
                 <button
                   onClick={() => handleRemove(product.id.toString())}
                   className={styles.buttonLink}
-                  style={{ marginLeft: '10px' }}
                 >
                   Quitar
                 </button>
@@ -80,6 +81,7 @@ const ProductDetailPage = () => {
       </div>
     </div>
   );
+
 };
 
 export default ProductDetailPage;

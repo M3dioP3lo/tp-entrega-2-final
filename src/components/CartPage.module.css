@@ -4,6 +4,9 @@
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 8px rgba(2, 2, 2, 3.1);
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
 .itemCard h3 {
@@ -33,7 +36,7 @@
 }
 
 .totalSection h2 {
-  color: #333;
+  color: #7981f8;
 }
 
 .links {
@@ -79,22 +82,73 @@
 }
 
 .detailButtonWrapper {
-  margin-top: 0.5rem;
+  margin-top: auto;
   display: flex;
   justify-content: flex-end;
 }
 
 .detailButton {
-  background-color: #00c6ff;
-  color: #222;
+  background-color: #007bff;
+  color: #fcfcfc;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 500;
   transition: background-color 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 2, 2.1);
 }
 
 .detailButton:hover {
   background-color: #0099cc;
   color: white;
+}
+
+.descriptionBox {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(2, 2, 2, 2.1);
+  max-width: 1000px;
+  flex: 1;
+}
+
+.descriptionTitle {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 0.5rem;
+}
+
+.descriptionText {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.priceText {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.productCard {
+  width: 100%;
+  box-sizing: border-box;
+}
+.notFoundContainer {
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  padding: 4rem;
 }

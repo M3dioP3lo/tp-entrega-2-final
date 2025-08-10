@@ -115,7 +115,7 @@ const ProductListPage = () => {
           </select>
         </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+        <div className={styles.productGrid}>
           {filteredProducts.length === 0 ? (
             <p>No se encontraron productos.</p>
           ) : (
@@ -163,13 +163,14 @@ const ProductListPage = () => {
                     </button>
                   </div>
 
-                  <div className={styles.detailButtonWrapper}></div>
-                  <Link
-                    to={`/producto/${product.id}`}
-                    className={styles.detailButton}
-                  >
-                    Ver detalle
-                  </Link>
+                  <div className={styles.detailButtonWrapper}>
+                    <Link
+                      to={`/producto/${product.id}`}
+                      className={styles.detailButton}
+                    >
+                      Ver detalle
+                    </Link>
+                  </div>
                 </div>
               );
             })

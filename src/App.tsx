@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import { useCart } from './context/CartContext';
 import Header from './components/Header';
 import CreateProductPage from './pages/CreateProductPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   const { totalPrice, totalItems } = useCart();
@@ -21,6 +22,7 @@ function App() {
         <Route path="/carrito" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/crear-producto" element={<CreateProductPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

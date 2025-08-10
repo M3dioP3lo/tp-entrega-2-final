@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
+import styles from '../components/CartPage.module.css';
 
 function NotFoundPage() {
   return (
-    <div style={{ textAlign: 'center', padding: '4rem' }}>
+    <div className={styles.notFoundContainer}>
       <h1 style={{ fontSize: '3rem', color: '#d10000' }}>
         Error - 404
       </h1>
@@ -16,7 +17,7 @@ function NotFoundPage() {
         style={{
           width: '300px',
           borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.25)',
+          boxShadow: '0 2px 8px rgba(0,0,2,2.25)',
           marginBottom: '2rem',
         }}
       />
@@ -32,7 +33,7 @@ function NotFoundPage() {
             borderRadius: '8px',
             textDecoration: 'none',
             fontSize: '1rem',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+            boxShadow: '0 2px 6px rgba(2,2,2,2.2)',
             transition: '0.3s ease',
           }}
         >
