@@ -1,23 +1,22 @@
-import React from "react";
-import styles from "./Navbar.module.css";
+import { Link } from 'react-router-dom';
+import styles from './Navbar.module.css';
 
 type Props = {
-  cartCount: number;
-  totalPrice: number;
+  totalPrice?: number;
 };
 
-
-const Navbar = ({ cartCount, totalPrice }: Props) => {
+function Navbar({ totalPrice = 0 }: Props) {
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logo}>
-        <img src="/images/Logo/Logo.svg" alt="Compras OnLine" />
+    <nav className={styles.nav}>
+      <div className={styles.total}>
+        <i className="fas fa-shopping-cart"></i>
+        &nbsp;Total: ${totalPrice.toLocaleString()}
       </div>
-      <div className={styles.cart}>
-        🛒 {cartCount} - ${totalPrice.toLocaleString()}
-      </div>
+      <Link to="/crear-producto" className={styles.navButton}>
+        Crear producto
+      </Link>
     </nav>
   );
-};
+}
 
 export default Navbar;

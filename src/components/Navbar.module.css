@@ -1,39 +1,128 @@
-.navbar {
+.nav {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  padding: 2rem 3rem;
-  background: linear-gradient(135deg, #085cca, #99caf5, #0099ff);
+  align-items: center;
+  padding: 0.2rem 1rem;
+  background: linear-gradient(135deg, #3c5f9d, #6b8bc8);
   color: white;
-  border-radius: 2.5rem;
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 1rem 1rem;
+  position: sticky;
+  top: 80px;
+  z-index: 999;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 0.5rem;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: white;
+  font-size: 1.5rem;
   font-weight: bold;
+}
+
+.logoIcon {
+  height: 100px;
+  width: auto;
+}
+
+.logoText {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 
-.logo img,
-.logoIcon {
-  height: 200px;
-  width: auto;
-  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 1));
+.links {
+  display: flex;
+  gap: 1.2rem;
+  list-style: none;
 }
-.cart {
-  position: absolute;
-  right: 20px;
-  bottom: 15px;
-  background-color: #ffd700;
-  color: #000;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+
+.links li a {
+  text-decoration: none;
+  color: #f0f0f0;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.links li a:hover {
+  color: #ffe900;
+}
+
+.total {
+  background-color: #00c6ff;
+  color: #222;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
   font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Inter', sans-serif;
+}
+
+.navButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.navButton:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.createProductContainer {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #113aa0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+.createProductContainer h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #333;
+  
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.buttonLink {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.buttonLink:hover {
+  background-color: #0056b3;
 }
