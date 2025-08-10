@@ -24,7 +24,10 @@ Se agregan capturas del funcionamiento según consignas sobre el último trabajo
 ![03 Entrega-4](https://github.com/user-attachments/assets/9cd3117e-81e4-4f4b-b787-b567f54c77b3)
 ![02 Entrega-4](https://github.com/user-attachments/assets/b44eb3ac-a1ce-44c4-88fe-ec0fb7b01cc4)
 ![01 Entrega-4](https://github.com/user-attachments/assets/f1327f49-d22a-4665-b51b-2ba48f4ad91f)
-
+![05 Entrega-4](https://github.com/user-attachments/assets/d8a05ce5-4677-4436-b0ad-ee98024e7e3e)
+![06 Entrega-4](https://github.com/user-attachments/assets/81e8a362-5118-4ed0-8133-13c0bc459bda)
+![07 Entrega-4](https://github.com/user-attachments/assets/f4cc1d24-4e46-49d9-b0b1-352f7c9560b8)
+![08 Entrega-4](https://github.com/user-attachments/assets/5d7f19c4-7f77-488f-b3b1-7872aa791464)
 
 
 
