@@ -1,18 +1,9 @@
 import styles from "./ProductList.module.css";
 import ProductCard from "./ProductCard";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-}
+import { useProducts } from "../hooks/useProducts";
 
 type Props = {
   category: string;
-  products: Product[];
   cart: { [id: string]: number };
   onAdd: (id: string) => void;
   onRemove: (id: string) => void;
@@ -21,17 +12,24 @@ type Props = {
 
 function ProductList({
   category,
-  products,
   cart,
   onAdd,
   onRemove,
   isOffersView = false,
 }: Props) {
+  const { products, loading, error } = useProducts();
+
+  if (loading) return <p>Cargando productos...</p>;
+  if (error) return <p>{error}</p>;
+
+
+  const filteredProducts = products.filter((p) => p.category === category);
+
   return (
     <div className={styles.section}>
       <h2 className={styles.title}>{category}</h2>
       <div className={styles.row}>
-        {products.map((p) => (
+        {filteredProducts.map((p) => (
           <ProductCard
             key={p.id}
             product={p}

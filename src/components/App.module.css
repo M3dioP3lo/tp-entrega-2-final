@@ -1,32 +1,57 @@
 .app {
+  width: 100vw;
   min-height: 100vh;
-  padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom right, #c3d1e6, #f0f8ff)
+  background: linear-gradient(to bottom right, #dce3f1, #e2ebf5);
   display: flex;
   flex-direction: column;
 }
 
 .controls {
   display: flex;
-  gap: 1rem;
-  align-items: center;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 1.5rem auto;
+  padding: 1rem;
+  max-width: 1200px;
+  background-color: #f2f5fc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+
 .button {
-  padding: 0.6rem 1.2rem;
-  background-color: #ffd700;
+  padding: 0.7rem 1.4rem;
+  background-color: #0077cc;
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  color: #333;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
-  background-color: #ffc107;
+  background-color: #005fa3;
+  transform: scale(1.02);
+}
+.ofertasButton {
+  padding: 0.9rem 1.8rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff4d00, #ff9900);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.ofertasButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }

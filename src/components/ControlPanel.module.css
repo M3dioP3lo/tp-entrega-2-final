@@ -1,25 +1,21 @@
-.panel {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.checkbox {
-  margin-right: 2rem;
-  display: inline-block;
-}
-
 .controlPanel {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  margin-bottom: 0,5rem;
+}
+
+.searchBar {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .ofertasButton {
@@ -32,7 +28,6 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-
 .ofertasButton:hover {
   background-color: #e68900;
 }

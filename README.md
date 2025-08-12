@@ -1,3 +1,36 @@
+# 🛍️ Proyecto Ecommerce - Entrega 4
+
+Aplicación web de catálogo y carrito de compras desarrollada con React + TypeScript + Vite. Permite visualizar productos, filtrarlos por categoría, ver detalles individuales, agregar al carrito y simular el proceso de compra.
+Refactorización visual del carrito de compras y pantalla de checkout.
+Mejora en la presentación del producto individual: jerarquía visual, separación de imagen y descripción.
+Implementación de la ruta /crear-producto con formulario funcional usando useMutation.
+Integración de botón en el navbar para acceder a la creación de productos.
+## 🚀 Tecnologías utilizadas
+
+- React + TypeScript
+- Vite
+- React Router
+- CSS Modules
+- Custom Hooks
+- Mock de servicios (`productService`)
+- 
+Se adjunta video con los cambios en los estilos solicitados.
+
+https://github.com/user-attachments/assets/ae3d05c1-fc32-4d10-bbe1-e43a67d13ad1
+
+Se agregan capturas del funcionamiento según consignas sobre el último trabajo. TP4
+
+![04 Entrega-4](https://github.com/user-attachments/assets/ae5139dd-ee42-45fe-9420-4d882f2fde8d)
+![03 Entrega-4](https://github.com/user-attachments/assets/9cd3117e-81e4-4f4b-b787-b567f54c77b3)
+![02 Entrega-4](https://github.com/user-attachments/assets/b44eb3ac-a1ce-44c4-88fe-ec0fb7b01cc4)
+![01 Entrega-4](https://github.com/user-attachments/assets/f1327f49-d22a-4665-b51b-2ba48f4ad91f)
+
+
+
+
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
