@@ -39,14 +39,7 @@ const ProductDetailPage = () => {
           <img
             src={product.image}
             alt={product.name}
-            style={{
-              width: '580px',
-              height: '580px',
-              objectFit: 'cover',
-              borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-              marginRight: '20px',
-            }}
+            className={styles.productImage}
           />
           <div className={styles.descriptionBox}>
             <h4 className={styles.descriptionTitle}>Descripción del Producto</h4>

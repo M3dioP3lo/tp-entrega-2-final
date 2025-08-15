@@ -15,7 +15,6 @@ function ProductList({
   cart,
   onAdd,
   onRemove,
-  isOffersView = false,
 }: Props) {
   const { products, loading, error } = useProducts();
 
