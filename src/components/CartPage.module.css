@@ -164,6 +164,31 @@
   margin-right: 20px;
   margin-bottom: 1rem;
 }
+.notFoundImage {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 2, 0.25);
+  margin-bottom: 2rem;
+}
+
+.notFoundButton {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background-color: #0077cc;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(2, 2, 2, 0.22);
+  transition: 0.3s ease;
+}
+
+.notFoundButton:hover {
+  background-color: #005fa3;
+}
+
 
 @media (max-width: 768px) {
   .itemDetails {
@@ -184,5 +209,17 @@
     width: 100%;
     box-sizing: border-box;
     padding: 1rem;
+  }
+}
+
+.notFoundTitle {
+  font-size: 3rem;
+  color: #d10000;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .notFoundTitle {
+    font-size: 2.2rem;
   }
 }

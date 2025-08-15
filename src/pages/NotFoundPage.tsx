@@ -4,22 +4,15 @@ import styles from '../components/CartPage.module.css';
 function NotFoundPage() {
   return (
     <div className={styles.notFoundContainer}>
-      <h1 style={{ fontSize: '3rem', color: '#d10000' }}>
-        Error - 404
-      </h1>
+      <h1 className={styles.notFoundTitle}>Error - 404</h1>
       <p style={{ fontSize: '1.3rem', color: '#555', marginBottom: '2rem' }}>
-       ¡Oops! Esta página no existe
+        ¡Oops! Esta página no existe
       </p>
 
       <img
         src="/images/capibara/perdido.webp"
         alt="Capibara perdido"
-        style={{
-          width: '300px',
-          borderRadius: '12px',
-          boxShadow: '0 2px 8px rgba(0,0,2,2.25)',
-          marginBottom: '2rem',
-        }}
+        className={styles.notFoundImage}
       />
 
       <div>
