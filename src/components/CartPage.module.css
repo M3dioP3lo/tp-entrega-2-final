@@ -7,6 +7,8 @@
   min-height: 500px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .itemCard h3 {
@@ -167,15 +169,20 @@
   .itemDetails {
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
   }
 
   .productImage {
     margin-right: 0;
     max-width: 100%;
+    height: auto;
   }
 
   .descriptionBox {
     width: 100%;
+    box-sizing: border-box;
     padding: 1rem;
   }
 }
